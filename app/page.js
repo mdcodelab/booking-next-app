@@ -2,20 +2,10 @@
 import React from 'react';
 import Toast from './(components)/Toast';
 import { useState } from 'react';
+import { useGlobalContext } from '@/context/context';
 
 function Page() {
-  const[showToast, setShowToast]=useState(false);
-  const [type, seType]=useState("error");
-
-  const handleShowToast = () => {
-setShowToast(!showToast);
-  }
-
-  const handleCloseToast = ()=> {
-    setShowToast(false);
-  }
-
-
+const {handleCloseToast, handleShowToast, showToast, type}=useGlobalContext();
   return (
     <div>
       Home page
