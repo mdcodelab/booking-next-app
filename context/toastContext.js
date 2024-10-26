@@ -2,9 +2,9 @@
 import React from "react";
 import { useState } from "react";
 
-const AppContext = React.createContext();
+const ToastContext = React.createContext();
 
-const AppProvider = ({ children }) => {
+const ToastProvider = ({ children }) => {
   //STATE VALUES
   //toast
   const [message, setMessage]=useState("");
@@ -23,7 +23,7 @@ const AppProvider = ({ children }) => {
       }
 
   return (
-    <AppContext.Provider
+    <ToastContext.Provider
       value={{
         setMessage,
         handleShowToast,
@@ -40,11 +40,11 @@ const AppProvider = ({ children }) => {
       }}
     >
       {children}
-    </AppContext.Provider>
+    </ToastContext.Provider>
   );
 };
 
-export { AppContext, AppProvider };
-export const useGlobalContext = () => {
-  return React.useContext(AppContext);
+export { ToastContext, ToastProvider };
+export const useToastContext = () => {
+  return React.useContext(ToastContext);
 };
