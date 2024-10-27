@@ -1,20 +1,26 @@
 "use client";
 import React from 'react';
-import Toast from './(components)/Toast';
-import { useState } from 'react';
-import { useToastContext } from '@/context/toastContext';
+import { rooms } from "../data/rooms.js";
+import RoomCard from './(components)/RoomCard.jsx';
 
 function Page() {
-const {handleCloseToast, handleShowToast, showToast, type}=useToastContext();
-  return (
-    <div>
-      Home page
-      
-      <button onClick={handleShowToast}>Show Toast</button>
+  console.log(rooms);
 
-      {showToast && <Toast message="This is a toast message!" onClose={handleCloseToast} type={type}/>}
-    </div>
-  )
+  return (
+    <>
+      {
+        rooms.length > 0 
+        ? rooms.map((room) => {
+            return (
+              <div key={room.$id}>
+                <RoomCard room={room}></RoomCard>
+              </div>
+            );
+          })
+        : <div>No rooms available at the moment.</div>
+      }
+    </>
+  );
 }
 
-export default Page
+export default Page;
