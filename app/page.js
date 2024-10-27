@@ -1,4 +1,3 @@
-"use client";
 import React from 'react';
 import { rooms } from "../data/rooms.js";
 import RoomCard from './(components)/RoomCard.jsx';
