@@ -7,7 +7,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className='py-6 bg-gray-300'>
+    <footer className='py-6 bg-gray-200'>
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col'>
       <form className="w-[300px] mx-auto shadow rounded-md p-2 border-1 border-black "action="https://formspree.io/f/mbjvoylv"
       method="POST">
@@ -20,7 +20,7 @@ const Footer = () => {
        </div>
       </form>
       <div className="flex items-center justify-between lg:px-24">
-          <h1 className="text-gray-600 text-2xl">Bookit</h1>
+          <h1 className="text-gray-600 text-xl font-semibold">Bookit</h1>
           <div className="flex items-center">
             <FaFacebook className="text-2xl mr-4 cursor-pointer hover:text-blue-600 transition ease-in-out duration-60"></FaFacebook>
             <FaTwitter className="text-2xl mr-4 cursor-pointer hover:text-blue-600 transition ease-in-out duration-60"></FaTwitter>
