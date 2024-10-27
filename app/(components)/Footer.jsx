@@ -15,16 +15,16 @@ const Footer = () => {
        <div className="flex items-center justify-center">
        <input type="email" className=" rounded-md px-1 py-1" name="email"
          placeholder="Enter your email..."></input>
-        <button type="submit"className="bg-black px-6 py-2 rounded-md ml-1 cursor-pointer hover:bg-blue-600 transition ease-in-out duration-60">
+        <button type="submit"className="bg-blue-600 px-6 py-2 rounded-md ml-1 cursor-pointer hover:bg-blue-700 transition ease-in-out duration-60">
         <IoMdSend className="text-white"></IoMdSend></button>
        </div>
       </form>
       <div className="flex items-center justify-between lg:px-24">
-          <h1 className="text-gray-600 text-xl font-semibold">Bookit</h1>
+          <h1 className="text-blue-600 text-xl font-semibold">Bookit</h1>
           <div className="flex items-center">
-            <FaFacebook className="text-2xl mr-4 cursor-pointer hover:text-blue-600 transition ease-in-out duration-60"></FaFacebook>
-            <FaTwitter className="text-2xl mr-4 cursor-pointer hover:text-blue-600 transition ease-in-out duration-60"></FaTwitter>
-            <FaYoutube className="text-2xl cursor-pointer hover:text-blue-600 transition ease-in-out duration-60"></FaYoutube>
+            <FaFacebook className="text-2xl text-blue-600 mr-4 cursor-pointer hover:text-blue-700 transition ease-in-out duration-60"></FaFacebook>
+            <FaTwitter className="text-2xl text-blue-600 mr-4 cursor-pointer hover:text-blue-700 transition ease-in-out duration-60"></FaTwitter>
+            <FaYoutube className="text-2xl text-blue-600 cursor-pointer hover:text-blue-700 transition ease-in-out duration-60"></FaYoutube>
           </div>
       </div>
         <p className='text-center text-sm text-gray-600 mt-2 pt-4'>

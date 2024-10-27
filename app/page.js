@@ -2,12 +2,14 @@
 import React from 'react';
 import { rooms } from "../data/rooms.js";
 import RoomCard from './(components)/RoomCard.jsx';
+import Heading from './(components)/Heading.jsx';
 
 function Page() {
   console.log(rooms);
 
   return (
     <>
+    <Heading title="Available rooms"></Heading>
       {
         rooms.length > 0 
         ? rooms.map((room) => {
