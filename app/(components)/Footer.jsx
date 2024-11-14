@@ -2,6 +2,7 @@ import { IoMdSend } from "react-icons/io";
 import { FaFacebook } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
+import Link from "next/link";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -20,7 +21,7 @@ const Footer = () => {
        </div>
       </form>
       <div className="flex items-center justify-between lg:px-24">
-          <h1 className="text-blue-600 text-xl font-semibold">Bookit</h1>
+          <Link href="/"><h1 className="text-blue-600 tracking-widest text-xl font-semibold">Bookit</h1></Link>
           <div className="flex items-center">
             <FaFacebook className="text-2xl text-blue-600 mr-4 cursor-pointer hover:text-blue-700 transition ease-in-out duration-60"></FaFacebook>
             <FaTwitter className="text-2xl text-blue-600 mr-4 cursor-pointer hover:text-blue-700 transition ease-in-out duration-60"></FaTwitter>
