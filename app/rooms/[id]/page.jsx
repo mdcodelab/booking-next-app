@@ -1,11 +1,13 @@
 import React from 'react';
-import { rooms } from '@/data/rooms';
+//import { rooms } from '@/data/rooms';
 import Heading from '@/app/(components)/Heading';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaChevronLeft } from 'react-icons/fa';
+import { getAllRooms } from '@/app/actions/getAllRooms';
 
 async function RoomPage({params}) {
+  const rooms= await getAllRooms();
     const {id}= await params;
     const room = rooms.find((room) => room.$id === id);
     console.log(room);

@@ -1,9 +1,11 @@
 import React from 'react';
-import { rooms } from "../data/rooms.js";
+//import { rooms } from "../data/rooms.js";
 import RoomCard from './(components)/RoomCard.jsx';
 import Heading from './(components)/Heading.jsx';
+import { getAllRooms } from './actions/getAllRooms.js';
 
-function Page() {
+async function Page() {
+  const rooms = await getAllRooms();
   console.log(rooms);
 
   return (
