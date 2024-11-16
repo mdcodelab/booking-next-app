@@ -5,11 +5,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FaChevronLeft } from 'react-icons/fa';
 import { getAllRooms } from '@/app/actions/getAllRooms';
+import { getSingleRoom} from '@/app/actions/getSingleRoom';
 
 async function RoomPage({params}) {
   const rooms= await getAllRooms();
     const {id}= await params;
     const room = rooms.find((room) => room.$id === id);
+    //const room=getSingleRoom(id);
     console.log(room);
     if(!room) {
         return <Heading title="Room Not Found."></Heading>
