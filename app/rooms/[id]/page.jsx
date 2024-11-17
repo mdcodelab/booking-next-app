@@ -12,7 +12,7 @@ async function RoomPage({params}) {
     const {id}= await params;
     const room = rooms.find((room) => room.$id === id);
     //const room=getSingleRoom(id);
-    console.log(room);
+    //console.log(room);
     if(!room) {
         return <Heading title="Room Not Found."></Heading>
     }

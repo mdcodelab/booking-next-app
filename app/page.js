@@ -6,7 +6,7 @@ import { getAllRooms } from './actions/getAllRooms.js';
 
 async function Page() {
   const rooms = await getAllRooms();
-  console.log(rooms);
+  //console.log(rooms);
 
   return (
     <>
