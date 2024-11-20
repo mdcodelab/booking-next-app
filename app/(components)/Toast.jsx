@@ -11,7 +11,12 @@ const Toast = ({ message, onClose, type }) => {
       return () => clearTimeout(timer);
     }, [onClose]);
 
+    useEffect(()=> {
+      console.log("Message:", message);
+    }, [message])
+
     const backgroundColor = type === "success" ? "bg-green-300" : "bg-red-300";
+    console.log(message);
   
     return (
       <div className={`toast ${backgroundColor}`}>

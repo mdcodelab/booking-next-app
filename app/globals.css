@@ -22,3 +22,7 @@ body {
   transform: translateX(-50%);
   border-radius: 5px;
 }
+
+.Toastify__toast {
+  text-align: center;
+}

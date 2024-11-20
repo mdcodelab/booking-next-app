@@ -33,10 +33,6 @@ const ToastProvider = ({ children }) => {
         type, 
         setType
 
-
-
-
-
       }}
     >
       {children}

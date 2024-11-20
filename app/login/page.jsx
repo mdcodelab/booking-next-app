@@ -1,38 +1,64 @@
-import React from 'react';
-import Link from 'next/link';
+"use client";
+import React, { useState } from "react";
+import Link from "next/link";
+import { createSession } from "../actions/createSession";
+import {toast } from 'react-toastify';
 
 function LoginPage() {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+        const response = await createSession(email, password);
+        toast(response.message);
+    } catch (error) {
+        console.log(error);
+        toast(error.message);
+    }
+  }
+
   return (
-    <div className="flex items-center justify-center">
+    <>
+      
+      <div className="flex items-center justify-center">
         <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-sm mt-20">
-          <form>
+          <form onSubmit={handleSubmit}>
             <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
               Login
             </h2>
 
             <div className="mb-4">
-              <label htmlFor="email" className="block text-gray-700 font-bold mb-2"
-                >Email</label
+              <label
+                htmlFor="email"
+                className="block text-gray-700 font-bold mb-2"
               >
+                Email
+              </label>
               <input
                 type="email"
                 id="email"
                 name="email"
                 className="border rounded w-full py-2 px-3"
-                required
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
             <div className="mb-6">
-              <label htmlFor="password" className="block text-gray-700 font-bold mb-2"
-                >Password</label
+              <label
+                htmlFor="password"
+                className="block text-gray-700 font-bold mb-2"
               >
+                Password
+              </label>
               <input
                 type="password"
                 id="password"
                 name="password"
                 className="border rounded w-full py-2 px-3"
-                required
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
@@ -46,13 +72,16 @@ function LoginPage() {
 
               <p>
                 No account?
-                <Link href="/register" className="text-blue-500">Register</Link>
+                <Link href="/register" className="text-blue-500">
+                  Register
+                </Link>
               </p>
             </div>
           </form>
         </div>
       </div>
-  )
+    </>
+  );
 }
 
-export default LoginPage
+export default LoginPage;
