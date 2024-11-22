@@ -11,7 +11,7 @@ function RegisterPage() {
             </h2>
 
             <div className="mb-4">
-              <label htmlFor="name" class="block text-gray-700 font-bold mb-2"
+              <label htmlFor="name" className="block text-gray-700 font-bold mb-2"
                 >Name</label
               >
               <input
@@ -74,7 +74,7 @@ function RegisterPage() {
 
               <p>
                 Have an account?
-                <Link href="/login" class="text-blue-500">Login</Link>
+                <Link href="/login" class="text-blue-500"> Login</Link>
               </p>
             </div>
           </form>

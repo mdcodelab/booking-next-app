@@ -3,26 +3,33 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { createSession } from "../actions/createSession";
 import {toast } from 'react-toastify';
+import {useRouter} from "next/navigation";
 
 function LoginPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if(!email || !password) {
+      toast.error("Email or password missing.");
+      return;
+    }
+    
     try {
-        const response = await createSession(email, password);
-        toast(response.message);
+        await createSession(email, password);
+          toast.success("Login successfully.");
+          router.push("/");
     } catch (error) {
         console.log(error);
-        toast(error.message);
+        toast.error(error.message);
     }
   }
 
   return (
     <>
-      
       <div className="flex items-center justify-center">
         <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-sm mt-20">
           <form onSubmit={handleSubmit}>
