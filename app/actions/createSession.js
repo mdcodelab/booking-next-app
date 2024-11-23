@@ -22,8 +22,6 @@ export async function createSession(email, password) {
       expires: new Date(session.expire),
       path: "/",
     });
-
-    console.log("Session created:", session);
     
     return { success: true, message: "Session created successfully." };
   } catch (error) {

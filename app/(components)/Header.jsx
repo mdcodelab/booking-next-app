@@ -1,18 +1,37 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaUser, FaSignInAlt, FaSignOutAlt, FaBuilding } from 'react-icons/fa';
-
+import { destroySession } from '../actions/destroySession';
+import { toast } from 'react-toastify';
+import { checkAuth } from '../actions/checkAuth';
 
 const Header = () => {
   const router = useRouter();
 
-const[isAuthenticated, setIsAuthenticated]=useState(false);
+const [isAuthenticated, setIsAuthenticated]=useState(null);
+
+useEffect(()=> {
+const fetchAuthStatus = async ()=> {
+  const result = await checkAuth();
+  return setIsAuthenticated(result.isAuthenticated);
+}
+fetchAuthStatus();
+}, [])
+
+console.log("is authenticated:", isAuthenticated);
 
   const handleLogout = async () => {
-    const { success, error } = await destroySession();
+    console.log("Button clicked");
+      const response = await destroySession();
+      if(response.success) {
+        toast.success(response.message);
+        router.push("/login")
+      } else {
+        toast.error(response.message);
+      }
   }
 
   return (
@@ -33,7 +52,7 @@ const[isAuthenticated, setIsAuthenticated]=useState(false);
                   Rooms
                 </Link>
                 {/* <!-- Logged In Only --> */}
-                {isAuthenticated && (
+                { (
                   <>
                     <Link
                       href='/bookings'
@@ -56,7 +75,7 @@ const[isAuthenticated, setIsAuthenticated]=useState(false);
           <div className='ml-auto'>
             <div className='ml-4 flex items-center md:ml-6'>
               {/* <!-- Logged Out Only --> */}
-              {!isAuthenticated && (
+              {(
                 <>
                   <Link
                     href='/login'
@@ -73,13 +92,13 @@ const[isAuthenticated, setIsAuthenticated]=useState(false);
                 </>
               )}
 
-              {isAuthenticated && (
+              {(
                 <>
                   <Link href='/rooms/my'>
                     <FaBuilding className='inline mr-1' /> My Rooms
                   </Link>
                   <button
-                    onClick={handleLogout}
+                    onClick={()=>handleLogout()}
                     className='mx-3 text-gray-800 hover:text-gray-600'
                   >
                     <FaSignOutAlt className='inline mr-1' /> Sign Out
@@ -101,7 +120,7 @@ const[isAuthenticated, setIsAuthenticated]=useState(false);
             Rooms
           </Link>
           {/* <!-- Logged In Only --> */}
-          {isAuthenticated && (
+          {(
             <>
               <Link
                 href='/bookings'
