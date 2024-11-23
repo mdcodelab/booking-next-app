@@ -9,7 +9,7 @@ function LoginPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
+  const router=useRouter();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -19,8 +19,8 @@ function LoginPage() {
     }
     
     try {
-        await createSession(email, password);
-          toast.success("Login successfully.");
+        const response=await createSession(email, password);
+          toast.success(response.message);
           router.push("/");
     } catch (error) {
         console.log(error);
