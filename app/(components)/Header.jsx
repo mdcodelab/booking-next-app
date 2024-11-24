@@ -11,11 +11,13 @@ import { checkAuth } from '../actions/checkAuth';
 const Header = () => {
   const router = useRouter();
 
-const [isAuthenticated, setIsAuthenticated]=useState(null);
+const [isAuthenticated, setIsAuthenticated]=useState(false);
+const [isLoading, setIsLoading]=useState(true);
 
 useEffect(()=> {
 const fetchAuthStatus = async ()=> {
   const result = await checkAuth();
+  setIsLoading(false);
   return setIsAuthenticated(result.isAuthenticated);
 }
 fetchAuthStatus();
@@ -52,7 +54,7 @@ console.log("is authenticated:", isAuthenticated);
                   Rooms
                 </Link>
                 {/* <!-- Logged In Only --> */}
-                { (
+                {isAuthenticated && (
                   <>
                     <Link
                       href='/bookings'
@@ -75,7 +77,7 @@ console.log("is authenticated:", isAuthenticated);
           <div className='ml-auto'>
             <div className='ml-4 flex items-center md:ml-6'>
               {/* <!-- Logged Out Only --> */}
-              {(
+              {!isAuthenticated && (
                 <>
                   <Link
                     href='/login'
@@ -92,7 +94,7 @@ console.log("is authenticated:", isAuthenticated);
                 </>
               )}
 
-              {(
+              {isAuthenticated && (
                 <>
                   <Link href='/rooms/my'>
                     <FaBuilding className='inline mr-1' /> My Rooms
@@ -120,7 +122,7 @@ console.log("is authenticated:", isAuthenticated);
             Rooms
           </Link>
           {/* <!-- Logged In Only --> */}
-          {(
+          {isAuthenticated && (
             <>
               <Link
                 href='/bookings'

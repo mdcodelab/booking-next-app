@@ -24,7 +24,7 @@ function RegisterPage() {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="email" class="block text-gray-700 font-bold mb-2"
+              <label htmlFor="email" className="block text-gray-700 font-bold mb-2"
                 >Email</label
               >
               <input
@@ -37,7 +37,7 @@ function RegisterPage() {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="password" class="block text-gray-700 font-bold mb-2"
+              <label htmlFor="password" className="block text-gray-700 font-bold mb-2"
                 >Password</label
               >
               <input
@@ -74,7 +74,7 @@ function RegisterPage() {
 
               <p>
                 Have an account?
-                <Link href="/login" class="text-blue-500"> Login</Link>
+                <Link href="/login" className="text-blue-500"> Login</Link>
               </p>
             </div>
           </form>
