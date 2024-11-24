@@ -4,12 +4,15 @@ import Link from "next/link";
 import { createSession } from "../actions/createSession";
 import {toast } from 'react-toastify';
 import {useRouter} from "next/navigation";
+import { useAuthContext } from "@/context/authContext";
 
 function LoginPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router=useRouter();
+
+  const {setIsAuthenticated} = useAuthContext();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -20,6 +23,7 @@ function LoginPage() {
     
     try {
         const response=await createSession(email, password);
+        setIsAuthenticated(true);
           toast.success(response.message);
           router.push("/");
     } catch (error) {

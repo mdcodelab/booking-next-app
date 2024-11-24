@@ -7,29 +7,20 @@ import { FaUser, FaSignInAlt, FaSignOutAlt, FaBuilding } from 'react-icons/fa';
 import { destroySession } from '../actions/destroySession';
 import { toast } from 'react-toastify';
 import { checkAuth } from '../actions/checkAuth';
+import { useAuthContext } from '@/context/authContext';
 
 const Header = () => {
+  const {isAuthenticated, setIsAuthenticated, currentUser}=useAuthContext();
   const router = useRouter();
 
-const [isAuthenticated, setIsAuthenticated]=useState(false);
-const [isLoading, setIsLoading]=useState(true);
 
-useEffect(()=> {
-const fetchAuthStatus = async ()=> {
-  const result = await checkAuth();
-  setIsLoading(false);
-  return setIsAuthenticated(result.isAuthenticated);
-}
-fetchAuthStatus();
-}, [])
-
-console.log("is authenticated:", isAuthenticated);
+console.log("is authenticated:", isAuthenticated, currentUser);
 
   const handleLogout = async () => {
-    console.log("Button clicked");
       const response = await destroySession();
       if(response.success) {
         toast.success(response.message);
+        setIsAuthenticated(false);
         router.push("/login")
       } else {
         toast.error(response.message);
