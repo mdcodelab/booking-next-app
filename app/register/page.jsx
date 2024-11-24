@@ -1,11 +1,37 @@
+
+"use client";
 import React from 'react';
 import Link from 'next/link';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { createUser } from '../actions/createUser';
+import { useRouter } from 'next/navigation';
 
 function RegisterPage() {
+  const [name, setName]=useState("");
+  const [email, setEmail]=useState("");
+  const [password, setPassword]=useState("");
+  const [rePassword, setRePassword]=useState("");
+
+const router = useRouter();
+
+  async function handleSubmit (e) {
+    e.preventDefault();
+    const response = await createUser(name, email, password, rePassword);
+    if(response.success) {
+      toast.success(response.success);
+      router.push("/login");
+    } else if (response.error) {
+      toast.error(response.error)
+    } else {
+      toast.error("An unexpected error occurred.")
+    }
+  }
+
   return (
     <div className="flex items-center justify-center">
         <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-sm mt-20">
-          <form>
+          <form onSubmit={handleSubmit}>
             <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
               Register
             </h2>
@@ -17,9 +43,9 @@ function RegisterPage() {
               <input
                 type="text"
                 id="name"
-                name="name"
+                name="name" value={name} placeholder="Your name..."
                 className="border rounded w-full py-2 px-3"
-                required
+                onChange={(e)=>setName(e.target.value)}
               />
             </div>
 
@@ -30,9 +56,9 @@ function RegisterPage() {
               <input
                 type="email"
                 id="email"
-                name="email"
+                name="email" value={email} placeholder="Your email..."
                 className="border rounded w-full py-2 px-3"
-                required
+                onChange={(e)=> setEmail(e.target.value)}
               />
             </div>
 
@@ -43,24 +69,24 @@ function RegisterPage() {
               <input
                 type="password"
                 id="password"
-                name="password"
+                name="password" value={password} placeholder="Set password ..."
                 className="border rounded w-full py-2 px-3"
-                required
+                onChange={(e)=> setPassword(e.target.value)}
               />
             </div>
 
             <div className="mb-6">
               <label
-                htmlFor="confirm-password"
+                htmlFor="rePassword"
                 className="block text-gray-700 font-bold mb-2"
                 >Confirm Password</label
               >
               <input
                 type="password"
-                id="confirm-password"
-                name="confirm-password"
+                id="rePassword"
+                name="rePassword" value={rePassword} placeholder="Conform password ..."
                 className="border rounded w-full py-2 px-3"
-                required
+                onChange={(e)=> setRePassword(e.target.value)}
               />
             </div>
 

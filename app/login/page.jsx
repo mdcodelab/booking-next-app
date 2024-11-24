@@ -51,7 +51,7 @@ function LoginPage() {
               <input
                 type="email"
                 id="email"
-                name="email"
+                name="email" value={email} placeholder="Your email..."
                 className="border rounded w-full py-2 px-3"
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -67,7 +67,7 @@ function LoginPage() {
               <input
                 type="password"
                 id="password"
-                name="password"
+                name="password" value={password} placeholder="Your password..."
                 className="border rounded w-full py-2 px-3"
                 onChange={(e) => setPassword(e.target.value)}
               />
