@@ -1,6 +1,6 @@
 import React from 'react'
 
-function page() {
+function BookingsPage() {
   return (
     <div>
       Bookings
@@ -8,4 +8,4 @@ function page() {
   )
 }
 
-export default page
+export default BookingsPage;

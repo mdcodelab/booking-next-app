@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { FaUser, FaSignInAlt, FaSignOutAlt, FaBuilding } from 'react-icons/fa';
 import { destroySession } from '../actions/destroySession';
 import { toast } from 'react-toastify';
-import { checkAuth } from '../actions/checkAuth';
 import { useAuthContext } from '@/context/authContext';
 
 const Header = () => {
@@ -54,7 +53,7 @@ console.log("is authenticated:", isAuthenticated, currentUser);
                       Bookings
                     </Link>
                     <Link
-                      href='/rooms/add'
+                      href='/rooms//add'
                       className='rounded-md px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-700 hover:text-white'
                     >
                       Add Room
