@@ -2,59 +2,29 @@
 import Heading from "@/app/(components)/Heading";
 import { createRoom } from "@/app/actions/createRoom";
  import { toast } from "react-toastify";
- import { useState } from "react";
+ import { useEffect} from "react";
+ import {useFormState, useFormStatus} from "react-dom";
+ import { useRouter } from "next/navigation";
 
 function AddRoomsPage() {
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [sqft, setSqft] = useState(0);
-    const [capacity, setCapacity] = useState(0);
-    const [price_per_hour, setPrice] = useState(0);
-    const [address, setAddress] = useState("");
-    const [location, setLocation] = useState("");
-    const [availability, setAvailability] = useState("");
-    const [amenities, setAmenities] = useState("");
-    const [image, setImage]=useState("");
+  const {pending}=useFormStatus();
+  const [state, formAction]=useFormState(createRoom, {});
+  const router = useRouter();
 
-    // for images
-    // const handleImageChange = (e) => {
-    //     const file = e.target.files[0];
-    //     if (file) {
-    //       const reader = new FileReader();
-    //       reader.onload = () => {
-    //         setImage(reader.result);
-    //       };
-    //       reader.readAsDataURL(file);
-    //     }
-    //   };
+  useEffect(()=> {
+if(state.success) {
+toast.success("Room created successfully.");
+router.push("/");
+}
+if(state.error) {
+  toast.error(state.error);
+}
+  }, [state])
 
-    
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      const result = await createRoom(
-        name,
-        description,
-        sqft,
-        capacity,
-        price_per_hour,
-        address,
-        location,
-        availability,
-        amenities,
-        //image
-      );
-      if (result.success) {
-        toast.success("Room created successfully.");
-      } else {
-        toast.error(result.error);
-      }
-    };
-
-  
   return (
     <div className="bg-white shadow-lg rounded-lg p-6 w-full">
     <Heading title="Add a Room"></Heading>
-      <form onSubmit={handleSubmit}>
+      <form action={formAction}>
         <div className="mb-4">
           <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
             Room Name
@@ -63,8 +33,8 @@ function AddRoomsPage() {
             type="text"
             id="name"
             name="name"
-            className="border rounded w-full py-2 px-3" value={name}
-            placeholder="Enter a name (Large Conference Room)" onChange={(e)=>setName(e.target.value)}
+            className="border rounded w-full py-2 px-3"
+            placeholder="Enter a name (Large Conference Room)" 
             required
           />
         </div>
@@ -76,8 +46,8 @@ function AddRoomsPage() {
           <textarea
             id="description"
             name="description"
-            className="border rounded w-full h-24 py-2 px-3" value={description}
-            placeholder="Enter a description for the room" onChange={(e)=> setDescription(e.target.value)}
+            className="border rounded w-full h-24 py-2 px-3"
+            placeholder="Enter a description for the room" 
             required
           ></textarea>
         </div>
@@ -89,9 +59,9 @@ function AddRoomsPage() {
           <input
             type="number"
             id="sqft"
-            name="sqft" value={sqft}
+            name="sqft"
             className="border rounded w-full py-2 px-3"
-            placeholder="Enter room size in ft" onChange={(e)=>setSqft(e.target.value)}
+            placeholder="Enter room size in ft" 
             required
           />
         </div>
@@ -103,9 +73,9 @@ function AddRoomsPage() {
           <input
             type="number"
             id="capacity"
-            name="capacity" value={capacity}
+            name="capacity"
             className="border rounded w-full py-2 px-3"
-            placeholder="Number of people the room can hold" onChange={(e)=>setCapacity(e.target.value)}
+            placeholder="Number of people the room can hold" 
             required
           />
         </div>
@@ -120,9 +90,9 @@ function AddRoomsPage() {
           <input
             type="number"
             id="price_per_hour"
-            name="price_per_hour" value={price_per_hour}
+            name="price_per_hour"
             className="border rounded w-full py-2 px-3"
-            placeholder="Enter price per hour" onChange={(e)=> setPrice(e.target.value)}
+            placeholder="Enter price per hour" 
             required
           />
         </div>
@@ -134,8 +104,8 @@ function AddRoomsPage() {
           <input
             type="text"
             id="address"
-            name="address" value={address}
-            className="border rounded w-full py-2 px-3" onChange={(e)=> setAddress(e.target.value)}
+            name="address"
+            className="border rounded w-full py-2 px-3" 
             placeholder="Enter full address"
             required
           />
@@ -149,8 +119,8 @@ function AddRoomsPage() {
             type="text"
             id="location"
             name="location"
-            className="border rounded w-full py-2 px-3" value={location}
-            placeholder="Location (Building, Floor, Room)" onChange={(e)=> setLocation(e.target.value)}
+            className="border rounded w-full py-2 px-3"
+            placeholder="Location (Building, Floor, Room)" 
             required
           />
         </div>
@@ -162,9 +132,9 @@ function AddRoomsPage() {
           <input
             type="text"
             id="availability"
-            name="availability" value={availability}
+            name="availability"
             className="border rounded w-full py-2 px-3"
-            placeholder="Availability (Monday - Friday, 9am - 5pm)" onChange={(e)=> setAvailability(e.target.value)}
+            placeholder="Availability (Monday - Friday, 9am - 5pm)" 
             required
           />
         </div>
@@ -177,8 +147,8 @@ function AddRoomsPage() {
             type="text"
             id="amenities"
             name="amenities"
-            className="border rounded w-full py-2 px-3" value={amenities}
-            placeholder="Amenities CSV (projector, whiteboard, etc.)" onChange={(e)=> setAmenities(e.target.value)}
+            className="border rounded w-full py-2 px-3"
+            placeholder="Amenities CSV (projector, whiteboard, etc.)" 
             required
           />
         </div>
@@ -191,7 +161,7 @@ function AddRoomsPage() {
           <input
             type="file"
             id="image"
-            name="image" value={image}
+            name="image"
             className="border rounded w-full py-2 px-3"
           />
         </div>
