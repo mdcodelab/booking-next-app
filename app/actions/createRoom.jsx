@@ -13,9 +13,22 @@ export async function createRoom(prevState, formData) {
       if (!user) {
         return { error: "You must be logged in to create a room." };
       }
-  
-      let imageID = null;
 
+      //upload image
+
+      let imageID = null;
+      const image = formData.get("image");
+      if(image && image.size > 0 && image.name !== "undefined") {
+        try {
+          const response = await storage.createFile("rooms", ID.unique(), image);
+          imageID = response.$id;
+        } catch (error) {
+          console.log("Error uploading image", error);
+          return {error: "Error uploading image."}
+        }
+      } else {
+        return { error: "Please provide an image for the room." };
+      }
   
       // create a room
       const newRoom = await databases.createDocument(
@@ -32,8 +45,8 @@ export async function createRoom(prevState, formData) {
           address: formData.get("address"),
           location: formData.get("location"),
           availability: formData.get("availability"),
-          amenities: formData.get("amenities")
-          //image_id: imageID, // Salvează ID-ul imaginii asociate
+          amenities: formData.get("amenities"),
+          image: imageID
         }
       );
 
@@ -42,9 +55,8 @@ export async function createRoom(prevState, formData) {
       revalidatePath("/");
       return { success: true };
     } catch (error) {
-      console.error(error);
-      const errorMessage=error.response.message || "An unexpected errror has occured.";
-      return { error: errorMessage};
+      console.log(error);
+      return { error: "An unexpected errror has occured."};
     }
   }
   

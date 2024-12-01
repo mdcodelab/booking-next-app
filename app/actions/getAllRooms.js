@@ -15,7 +15,7 @@ export async function getAllRooms () {
         );
 
         //revalidate
-       // revalidatePath("/", "layout");
+       revalidatePath("/");
         return rooms;
     } catch (error) {
         console.log("Failed to fetch rooms", error);

@@ -5,34 +5,44 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FaChevronLeft } from 'react-icons/fa';
 import { getAllRooms } from '@/app/actions/getAllRooms';
-import { getSingleRoom} from '@/app/actions/getSingleRoom';
+import { getSingleRoom } from '@/app/actions/getSingleRoom';
 import Form from '@/app/(components)/Form';
 
-async function RoomPage({params}) {
-  const rooms= await getAllRooms();
-    const {id}= await params;
-    const room = rooms.find((room) => room.$id === id);
-    //const room=getSingleRoom(id);
-    //console.log(room);
-    if(!room) {
-        return <Heading title="Room Not Found."></Heading>
-    }
+async function RoomPage({ params }) {
+  const rooms = await getAllRooms();
+  const { id } = await params;
+  const room = rooms.find((room) => room.$id === id);
+
+  if (!room) {
+    return <Heading title="Room Not Found." />;
+  }
+
+  const bucketId = process.env.NEXT_PUBLIC_APPWRITE_STORAGE_bucketRooms_ROOMS;
+  const projectId = process.env.NEXT_PUBLIC_APPWRITE_PROJECT;
+
+  const imageUrl = room.image?.includes('.jpg') || room.image?.includes('.png')
+    ? `/assets/${room.image}` // Imagine locală
+    : room.image
+    ? `https://cloud.appwrite.io/v1/storage/buckets/${bucketId}/files/${room.image}/view?project=${projectId}` // Imagine externă
+    : '/assets/no-image.jpg'; // Imagine default
 
   return (
     <>
-      <Heading title={room.name}></Heading>
+      <Heading title={room.name} />
       <div className="bg-white shadow rounded-lg p-6">
         <Link
           href="/"
           className="flex items-center text-gray-600 hover:text-gray-800 mb-4"
         >
-          <FaChevronLeft className="inline mr-1"></FaChevronLeft>
+          <FaChevronLeft className="inline mr-1" />
           <span className="ml-2">Back to Rooms</span>
         </Link>
 
         <div className="flex flex-col sm:flex-row sm:space-x-6">
           <Image
-            src={`/assets/${room.image}`} width={400} height={100}
+            src={imageUrl}
+            width={400}
+            height={100}
             alt={room.name}
             className="w-full sm:w-1/3 h-64 object-cover rounded-md"
           />
@@ -61,11 +71,11 @@ async function RoomPage({params}) {
 
         <div className="mt-6">
           <h2 className="text-xl font-bold">Book this Room</h2>
-         <Form></Form> 
+          <Form />
         </div>
       </div>
     </>
-  )
+  );
 }
 
 export default RoomPage;

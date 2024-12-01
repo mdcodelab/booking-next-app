@@ -8,6 +8,7 @@ import { createRoom } from "@/app/actions/createRoom";
 
 function AddRoomsPage() {
   const {pending}=useFormStatus();
+  console.log("Pending", pending);
   const [state, formAction]=useFormState(createRoom, {});
   const router = useRouter();
 
@@ -168,10 +169,10 @@ if(state.error) {
 
         <div className="flex flex-col gap-5">
           <button
-            type="submit"
+            type="submit" disabled={pending}
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
           >
-            Save
+            {pending ? "Please wait..." : "Save"}
           </button>
         </div>
       </form>
